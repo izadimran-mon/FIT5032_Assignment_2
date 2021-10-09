@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using FIT5032_Assignment_2.Models;
 
 namespace FIT5032_Assignment_2.Data
 {
@@ -12,5 +15,7 @@ namespace FIT5032_Assignment_2.Data
             : base(options)
         {
         }
+
+        public DbSet<Files> Files { get; set; }
     }
 }
