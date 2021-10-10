@@ -12,12 +12,12 @@ using SendGrid.Helpers.Mail;
 
 namespace FIT5032_Assignment_2.Controllers
 {
-    public class OrganisationController : Controller
+    public class PublishController : Controller
     {
         private readonly ApplicationDbContext _context;
         private const String API_KEY = "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";
 
-        public OrganisationController(ApplicationDbContext context)
+        public PublishController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -68,6 +68,7 @@ namespace FIT5032_Assignment_2.Controllers
 
                 foreach (var e in emails)
                 {
+                    System.Console.WriteLine(e.email);
                     var to = new EmailAddress(e.email, "");
                     var msg = MailHelper.CreateSingleEmail(from, to, "NFT Newsletter", plainTextContent, htmlContent);
                     msg.AddAttachment("Newsletter File", content);
