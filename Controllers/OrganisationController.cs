@@ -7,12 +7,15 @@ using FIT5032_Assignment_2.Data;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using FIT5032_Assignment_2.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace FIT5032_Assignment_2.Controllers
 {
     public class OrganisationController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private const String API_KEY = "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";
 
         public OrganisationController(ApplicationDbContext context)
         {
@@ -28,6 +31,20 @@ namespace FIT5032_Assignment_2.Controllers
         {
             if (files.Length > 0)
             {
+                var emails = from u in _context.Users
+                             join ur in _context.UserRoles on u.Id equals ur.UserId
+                             join r in _context.Roles on ur.RoleId equals r.Id
+                             where r.Name == "Donor/Buyer"
+                             select new
+                             {
+                                 email = u.Email
+                             };
+                var client = new SendGridClient(API_KEY);
+                var from = new EmailAddress("imuh0001@student.monash.edu", "NFTsForGood");
+                var plainTextContent = "";
+                var htmlContent = "<p>Newsletter</p>";
+
+                String content = "";
                 var fileName = Path.GetFileName(files.FileName);
                 var fileExtension = Path.GetExtension(fileName);
                 var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
@@ -38,16 +55,25 @@ namespace FIT5032_Assignment_2.Controllers
                     FileType = fileExtension,
                     CreatedOn = DateTime.Now
                 };
-                using (var target=new MemoryStream())
+                using (var target = new MemoryStream())
                 {
                     files.CopyTo(target);
-                    objFiles.DataFiles = target.ToArray();
+                    var fileBytes = target.ToArray();
+                    objFiles.DataFiles = fileBytes;
+                    content = Convert.ToBase64String(fileBytes);
                 }
 
                 _context.Files.Add(objFiles);
                 _context.SaveChanges();
-            }
 
+                foreach (var e in emails)
+                {
+                    var to = new EmailAddress(e.email, "");
+                    var msg = MailHelper.CreateSingleEmail(from, to, "NFT Newsletter", plainTextContent, htmlContent);
+                    msg.AddAttachment("Newsletter File", content);
+                    client.SendEmailAsync(msg);
+                }
+            }
             return View();
         }
     }
