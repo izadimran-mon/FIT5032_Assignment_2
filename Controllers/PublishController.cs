@@ -40,7 +40,7 @@ namespace FIT5032_Assignment_2.Controllers
                                  email = u.Email
                              };
                 var client = new SendGridClient(API_KEY);
-                var from = new EmailAddress("imuh0001@student.monash.edu", "NFTsForGood");
+                var from = new EmailAddress("izadimrang7@gmail.com", "NFTsForGood");
                 var plainTextContent = "";
                 var htmlContent = "<p>Newsletter</p>";
 
@@ -72,7 +72,8 @@ namespace FIT5032_Assignment_2.Controllers
                     var to = new EmailAddress(e.email, "");
                     var msg = MailHelper.CreateSingleEmail(from, to, "NFT Newsletter", plainTextContent, htmlContent);
                     msg.AddAttachment("Newsletter File", content);
-                    client.SendEmailAsync(msg);
+                    var response = client.SendEmailAsync(msg);
+                    System.Console.WriteLine(response.Result.StatusCode);
                 }
             }
             return View();
