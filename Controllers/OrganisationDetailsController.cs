@@ -5,16 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using FIT5032_Assignment_2.Models;
 using FIT5032_Assignment_2.Data;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace FIT5032_Assignment_2.Controllers
 {
     public class OrganisationDetailsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public OrganisationDetailsController(ApplicationDbContext context)
+        public OrganisationDetailsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -25,34 +29,25 @@ namespace FIT5032_Assignment_2.Controllers
         [HttpPost]
         public ActionResult Submit(OrganisationDetails model)
         {
-            System.Console.WriteLine("lol");
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    String org_url = model.Org_URL;
-                    String org_name = model.Org_Name;
-                    String project_title = model.Project_Title;
-                    String description = model.Description;
-                    int target_amount = model.Target_Amount;
-                    DateTime dateline = model.Dateline;
 
-                    //_context.Organisation_Details.Add(model)
+                    model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    System.Console.WriteLine(model.UserId);
+                    _context.OrganisationDetails.Add(model);
+                    _context.SaveChanges();
                     ViewBag.Result = "Details have been submitted and project is now up for fund raising!";
-
-
                     ModelState.Clear();
-
-
                 }
                 catch
                 {
-                    return View();
+                    return View("Index");
                 }
             }
-
-            return View();
+            return View("Index");
         }
-
     }
 }

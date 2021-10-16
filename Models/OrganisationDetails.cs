@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +18,9 @@ namespace FIT5032_Assignment_2.Models
 
         [MaxLength(450)]
         public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual IdentityUser User { get; set; }
 
         [Required(ErrorMessage = "Please enter the organisation's URL.")]
         [Display(Name = "Organisation URL")]
