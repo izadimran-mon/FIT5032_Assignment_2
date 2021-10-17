@@ -13,7 +13,6 @@ namespace FIT5032_Assignment_2.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public int Id { get; set; }
 
         [MaxLength(450)]

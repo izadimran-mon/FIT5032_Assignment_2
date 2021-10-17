@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FIT5032_Assignment_2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211016092241_Organisation_Details_IdentityUser")]
-    partial class Organisation_Details_IdentityUser
+    [Migration("20211017093521_OrganisationDetails")]
+    partial class OrganisationDetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -29,9 +29,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Publish" asp-action="Index">Publish Newsletter</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="OrganisationDetails" asp-action="Index">Fund-raising Info</a>
-                                </li>
+
+                                if ((String)ViewData["SubmitInfoStatus"] == "false")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="OrganisationDetails" asp-action="Index">Submit Fund-Raising Info</a>
+                                    </li>
+                                }
+
                             }
                         }
 

@@ -45,6 +45,33 @@ namespace FIT5032_Assignment_2.Data.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("FIT5032_Assignment_2.Models.NFTsBought", b =>
+                {
+                    b.Property<string>("Tx_Hash")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Buyer_Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NFT_URL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrgId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<float>("Sold_For")
+                        .HasColumnType("real");
+
+                    b.HasKey("Tx_Hash");
+
+                    b.HasIndex("OrgId");
+
+                    b.ToTable("NFTsBought");
+                });
+
             modelBuilder.Entity("FIT5032_Assignment_2.Models.OrganisationDetails", b =>
                 {
                     b.Property<int>("Id")
@@ -283,6 +310,15 @@ namespace FIT5032_Assignment_2.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("FIT5032_Assignment_2.Models.NFTsBought", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("OrgId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FIT5032_Assignment_2.Models.OrganisationDetails", b =>

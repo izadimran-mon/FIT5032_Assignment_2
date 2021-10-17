@@ -45,9 +45,10 @@ namespace FIT5032_Assignment_2.Controllers
                 catch
                 {
                     return View("Index");
+
                 }
             }
-            return View("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
