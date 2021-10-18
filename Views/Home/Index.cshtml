@@ -5,7 +5,8 @@
         "Project Title",
         "Organisation",
         "Amount Funded",
-        "Target Amount"
+        "Target Amount",
+        "Dateline"
     };
 }
 
@@ -51,6 +52,7 @@
                                         <td><a href=@Data.Organisation_URL>@Data.Organisation</a></td>
                                         <td>@Data.AmountFunded</td>
                                         <td>@Data.TargetAmount</td>
+                                        <td>@Data.Dateline</td>
                                         <td><button><a class="nav-link text-dark" asp-controller="Gift" asp-action="Index">Gift</a></button></td>
                                     </tr>
                                 }

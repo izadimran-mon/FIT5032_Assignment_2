@@ -95,7 +95,8 @@ namespace FIT5032_Assignment_2.Controllers
                     Organisation = org.org_name,
                     Organisation_URL = org.org_url,
                     AmountFunded = amountRaised[org.orgid],
-                    TargetAmount = org.target
+                    TargetAmount = org.target,
+                    Dateline = org.dateline
                 });
 
             } 

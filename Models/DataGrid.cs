@@ -13,5 +13,7 @@ namespace FIT5032_Assignment_2.Models
         public string Organisation_URL { get; set; }
         public float AmountFunded { get; set; }
         public int TargetAmount { get; set; }
+
+        public DateTime Dateline { get; set; }
     }
 }
