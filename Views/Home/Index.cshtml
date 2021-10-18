@@ -47,8 +47,8 @@
                                 foreach (var Data in Model)
                                 {
                                     <tr>
-                                        <td>@Data.ProjectTitle</td>
-                                        <td><a class="nav-link text-dark" href=@Data.Organisation_URL>@Data.Organisation</a></td>
+                                        <td>@Html.ActionLink((String)Data.ProjectTitle, "Index", "OrganisationPage", new { orgid = Data.OrgId}, null)</td>
+                                        <td><a href=@Data.Organisation_URL>@Data.Organisation</a></td>
                                         <td>@Data.AmountFunded</td>
                                         <td>@Data.TargetAmount</td>
                                         <td><button><a class="nav-link text-dark" asp-controller="Gift" asp-action="Index">Gift</a></button></td>

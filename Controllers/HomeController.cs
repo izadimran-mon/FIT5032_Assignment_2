@@ -90,6 +90,7 @@ namespace FIT5032_Assignment_2.Controllers
                 }
                 data.Add(new DataGrid()
                 {
+                    OrgId = org.orgid,
                     ProjectTitle = org.project_title,
                     Organisation = org.org_name,
                     Organisation_URL = org.org_url,

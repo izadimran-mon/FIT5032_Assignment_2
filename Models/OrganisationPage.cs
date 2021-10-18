@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FIT5032_Assignment_2.Models
 {
-    public class DataGrid
+    public class OrganisationPage
     {
         public string OrgId { get; set; }
         public string ProjectTitle { get; set; }
@@ -13,5 +13,7 @@ namespace FIT5032_Assignment_2.Models
         public string Organisation_URL { get; set; }
         public float AmountFunded { get; set; }
         public int TargetAmount { get; set; }
+        public DateTime Dateline { get; set; }
+        public Dictionary <String, String> NFT_URL_Donor { get; set; }
     }
 }

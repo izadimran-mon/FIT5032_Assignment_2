@@ -34,7 +34,6 @@ namespace FIT5032_Assignment_2.Controllers
             {
                 try
                 {
-
                     model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     System.Console.WriteLine(model.UserId);
                     _context.OrganisationDetails.Add(model);
