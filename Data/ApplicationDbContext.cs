@@ -19,7 +19,7 @@ namespace FIT5032_Assignment_2.Data
         public DbSet<Files> Files { get; set; }
         public DbSet<OrganisationDetails> OrganisationDetails { get; set; }
         public DbSet<NFTsBought> NFTsBought { get; set; }
-
         public DbSet<NFTsDonated> NFTsDonated { get; set; }
+        public DbSet<Rating> Rating { get; set; }
     }
 }

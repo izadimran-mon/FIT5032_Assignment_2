@@ -24,6 +24,13 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            if ((String)ViewData["RatingStatus"] == "false")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index">Rate App</a>
+                                </li>
+                            }
+
                             if (User.IsInRole("Organisation"))
                             {
                                 <li class="nav-item">

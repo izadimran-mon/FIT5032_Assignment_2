@@ -68,12 +68,12 @@ namespace FIT5032_Assignment_2.Controllers
 
                 foreach (var e in emails)
                 {
-                    System.Console.WriteLine(e.email);
+                    //System.Console.WriteLine(e.email);
                     var to = new EmailAddress(e.email, "");
                     var msg = MailHelper.CreateSingleEmail(from, to, "NFT Newsletter", plainTextContent, htmlContent);
                     msg.AddAttachment("Newsletter File", content);
                     var response = client.SendEmailAsync(msg);
-                    System.Console.WriteLine(response.Result.StatusCode);
+                    //System.Console.WriteLine(response.Result.StatusCode);
                 }
             }
             return View();

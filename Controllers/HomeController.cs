@@ -18,6 +18,7 @@ namespace FIT5032_Assignment_2.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         List<DataGrid> data = new List<DataGrid>();
+        double AppRating = new double();
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
@@ -31,20 +32,60 @@ namespace FIT5032_Assignment_2.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 FetchData();
-                ViewData["SubmitInfoStatus"] = QueryStatus();
+                if (TempData["Result"] != null)
+                {
+                    ViewBag.Result = TempData["Result"].ToString();
+                }
+                ViewData["SubmitInfoStatus"] = QuerySubmitInfoStatus();
+                ViewData["RatingStatus"] = QueryRatingStatus();
+
                 return View(data);
             }
             else
             {
-                return View();
+                ComputeRating();
+                AppRating = Math.Round(AppRating, 2);
+                return View(AppRating);
             }
 
         }
 
-        private String QueryStatus()
+        private void ComputeRating()
+        {
+            var ratings = from u in _context.Rating
+                        select new
+                        {
+                            rating_score = u.Rating_Score
+                        };
+            float total_score = new float();
+
+            if (ratings.Any())
+            {
+                foreach (var row in ratings)
+                {
+                    total_score += row.rating_score;
+                }
+
+                AppRating = total_score/ratings.Count();
+            }
+        }
+        private String QuerySubmitInfoStatus()
         {
             string userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var found = from u in _context.OrganisationDetails
+                        where u.UserId == userid
+                        select new
+                        {
+                            orgid = u.UserId
+                        };
+
+            return found.Any() ? "true" : "false";
+        }
+
+        private String QueryRatingStatus()
+        {
+            string userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var found = from u in _context.Rating
                         where u.UserId == userid
                         select new
                         {
@@ -86,7 +127,7 @@ namespace FIT5032_Assignment_2.Controllers
                     {
                         amountRaised[org.orgid] += row.soldfor;
                     }
-                    System.Console.WriteLine(amountRaised[org.orgid]);
+                    //System.Console.WriteLine(amountRaised[org.orgid]);
                 }
                 data.Add(new DataGrid()
                 {

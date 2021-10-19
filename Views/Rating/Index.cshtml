@@ -1,0 +1,28 @@
+﻿@model FIT5032_Assignment_2.Models.Rating
+<!-- Bootstrap -->
+<script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+      media="screen" />
+<!-- Bootstrap -->
+
+@using (Html.BeginForm("Submit", "Rating", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rating_Score, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Rating_Score, new { @type = "number", @min = "1", @max = "10"})
+                @Html.ValidationMessageFor(model => model.Rating_Score, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
