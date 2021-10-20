@@ -26,6 +26,7 @@ namespace FIT5032_Assignment_2.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Submit(Rating rating)
         {
             if (ModelState.IsValid)

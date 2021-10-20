@@ -73,10 +73,11 @@ namespace FIT5032_Assignment_2.Controllers
                     var msg = MailHelper.CreateSingleEmail(from, to, "NFT Newsletter", plainTextContent, htmlContent);
                     msg.AddAttachment("Newsletter File", content);
                     var response = client.SendEmailAsync(msg);
+                    TempData["Result"] = "Your newsletter have been sent to our subscribers.";
                     //System.Console.WriteLine(response.Result.StatusCode);
                 }
             }
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

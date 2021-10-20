@@ -38,7 +38,7 @@ namespace FIT5032_Assignment_2.Controllers
                     //System.Console.WriteLine(model.UserId);
                     _context.OrganisationDetails.Add(model);
                     _context.SaveChanges();
-                    ViewBag.Result = "Details have been submitted and project is now up for fund raising!";
+                    TempData["Result"] = "Details have been submitted and project is now up for fund raising!";
                     ModelState.Clear();
                 }
                 catch

@@ -27,9 +27,7 @@
     <script defer type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script defer type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
 
-    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
-
-
+      
 </head>
 <body>
     @if (User.Identity.IsAuthenticated)
@@ -65,7 +63,7 @@
                                         <td>@Data.AmountFunded</td>
                                         <td>@Data.TargetAmount</td>
                                         <td>@Data.Dateline</td>
-                                        <td><button><a class="nav-link text-dark" asp-controller="Gift" asp-action="Index">Gift</a></button></td>
+                                        <td><button>@Html.ActionLink("Gift", "Index", "Gift", new { orgid = Data.OrgId }, null)</button></td>
                                     </tr>
                                 }
                             }
@@ -79,19 +77,19 @@
                 </table>
             </div>
         </div>
-                            }
-                            else
-                            {
-        <div>
-            <h1>Welcome to NFTsForGood!</h1>
-            <h4>Sign up as a Donor/Buyer to gift/buy NFTs today! Or sign up as an organisation to raise fund!</h4>
-            @{
-                if (Model != null)
-                {
-                    <div>App's Rating: @Model</div>
+        }
+        else
+        {
+            <div>
+                <h1>Welcome to NFTsForGood!</h1>
+                <h4>Sign up as a Donor/Buyer to gift/buy NFTs today! Or sign up as an organisation to raise fund!</h4>
+                @{
+                    if (Model != null)
+                    {
+                        <div>App's Rating: @Model</div>
+                    }
                 }
-            }
-        </div>
-    }
+            </div>
+        }
 </body>
 </html>
