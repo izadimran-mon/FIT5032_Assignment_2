@@ -12,9 +12,11 @@ namespace FIT5032_Assignment_2.Models
     public class NFTsBought
     {
         [Key]
+        [Display(Name = "Transaction Hash")]
         public string Tx_Hash { get; set; }
 
         [Required(ErrorMessage = "Please key in the address you bought with.")]
+        [Display(Name = "Buyer's ETH Address")]
         public string Buyer_Address { get; set; }
 
         [MaxLength(450)]
@@ -23,10 +25,9 @@ namespace FIT5032_Assignment_2.Models
         [ForeignKey("OrgId")]
         public virtual IdentityUser User { get; set; }
 
-        [Required]
         public string NFT_URL { get; set; }
 
-        [Required]
+        [Display(Name = "Bought For (ETH)")]
         public float Sold_For { get; set; }
 
     }
