@@ -112,34 +112,36 @@ namespace FIT5032_Assignment_2.Controllers
 
             foreach (var org in orgs)
             {
-                amountRaised.Add(org.orgid, 0);
-                var nftsold = from n in _context.NFTsBought
-                              where n.OrgId == org.orgid
-                             select new
-                             {
-                                 orgid = n.OrgId,
-                                 soldfor = n.Sold_For
-                             };
-
-                if (nftsold.Any())
+                TimeSpan ts = org.dateline.Subtract(DateTime.Now);
+                if (ts.Days > 0)
                 {
-                    foreach (var row in nftsold)
+                    amountRaised.Add(org.orgid, 0);
+                    var nftsold = from n in _context.NFTsBought
+                                  where n.OrgId == org.orgid
+                                  select new
+                                  {
+                                      orgid = n.OrgId,
+                                      soldfor = n.Sold_For
+                                  };
+
+                    if (nftsold.Any())
                     {
-                        amountRaised[org.orgid] += row.soldfor;
+                        foreach (var row in nftsold)
+                        {
+                            amountRaised[org.orgid] += row.soldfor;
+                        }
                     }
-                    //System.Console.WriteLine(amountRaised[org.orgid]);
+                    data.Add(new DataGrid()
+                    {
+                        OrgId = org.orgid,
+                        ProjectTitle = org.project_title,
+                        Organisation = org.org_name,
+                        Organisation_URL = org.org_url,
+                        AmountFunded = amountRaised[org.orgid],
+                        TargetAmount = org.target,
+                        Dateline = org.dateline
+                    });
                 }
-                data.Add(new DataGrid()
-                {
-                    OrgId = org.orgid,
-                    ProjectTitle = org.project_title,
-                    Organisation = org.org_name,
-                    Organisation_URL = org.org_url,
-                    AmountFunded = amountRaised[org.orgid],
-                    TargetAmount = org.target,
-                    Dateline = org.dateline
-                });
-
             } 
         }
 

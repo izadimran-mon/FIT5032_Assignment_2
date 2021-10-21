@@ -33,7 +33,8 @@ namespace FIT5032_Assignment_2.Controllers
                              org_name = od.Org_Name,
                              org_url = od.Org_URL,
                              target = od.Target_Amount,
-                             dateline = od.Dateline
+                             dateline = od.Dateline,
+                             description = od.Description
                          };
 
             var bought = from nb in _context.NFTsBought
@@ -51,7 +52,6 @@ namespace FIT5032_Assignment_2.Controllers
                            donor = nd.Donor_Address
                        };
 
-
             OrganisationPage orgpage = new OrganisationPage();
 
             foreach (var item in org)
@@ -61,7 +61,10 @@ namespace FIT5032_Assignment_2.Controllers
                 orgpage.Organisation = item.org_name;
                 orgpage.Organisation_URL = item.org_url;
                 orgpage.TargetAmount = item.target;
-                orgpage.Dateline = item.dateline;
+
+                TimeSpan ts = item.dateline.Subtract(DateTime.Now);
+                orgpage.RemainingDays = ts.Days;
+                orgpage.Description = item.description;
             }
 
             float total = 0;

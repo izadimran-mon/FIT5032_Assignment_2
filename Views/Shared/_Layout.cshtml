@@ -24,12 +24,6 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            if ((String)ViewData["RatingStatus"] == "false")
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Rating" asp-action="Index">Rate App</a>
-                                </li>
-                            }
 
                             if (User.IsInRole("Organisation"))
                             {
@@ -61,7 +55,19 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - NFTsForGood
+            @if (User.Identity.IsAuthenticated)
+            {
+                if ((String)ViewData["RatingStatus"] == "false")
+                {
+                    <div>
+                        &copy; 2021 - NFTsForGood - @Html.ActionLink("Rate App", "Index", "Rating")
+                    </div>
+                }
+                else
+                {
+                    <div>&copy; 2021 - NFTsForGood</div>
+                }
+            }
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

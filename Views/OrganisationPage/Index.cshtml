@@ -5,8 +5,10 @@
         "NFT",
         "Gifted By",
         "Buy the NFT"
-                            };
+    };
 }
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +25,26 @@
 </head>
 <body>
     <div class="container">
+        <div>
+            <h3>@Model.ProjectTitle</h3>
+            <button>@Html.ActionLink("Gift A NFT", "Index", "Gift", new { orgid = Model.OrgId }, null)</button>
+        </div>
+        <div>
+            @Model.Organisation
+        </div>
+        <div>
+            @Model.Description
+        </div>
+        <div>
+            Fund raising ends in @Model.RemainingDays day(s). Raised @Model.AmountFunded / @Model.TargetAmount ETH.
+        </div>
+
+    </div>
+    <div class="container">
         <br />
+        <div>
+            <h4>NFTs for sale to fund this project:</h4>
+        </div>
         <div style="width:90%; margin:0 auto;">
             @if (Model.NFT_URL_Donor != null)
             {
@@ -63,3 +84,4 @@
         </div>
     </div>
 </body>
+</html>
