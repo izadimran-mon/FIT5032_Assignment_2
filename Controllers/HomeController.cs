@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using FIT5032_Assignment_2.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace FIT5032_Assignment_2.Controllers
 {
@@ -45,9 +46,26 @@ namespace FIT5032_Assignment_2.Controllers
             {
                 ComputeRating();
                 AppRating = Math.Round(AppRating, 2);
-                return View(AppRating);
+                WelcomeData data = new WelcomeData();
+                data.AppRating = AppRating;
+
+                return View(data);
             }
 
+        }
+
+
+        public async Task<ActionResult> GetData()
+        {
+            var date = await _context.OrganisationDetails.Select(j => j.Dateline).Distinct().ToListAsync();
+            List<int> projectCount = new List<int>();
+
+            foreach (var day in date)
+            {
+                var projects = _context.OrganisationDetails.Where(j => j.Dateline == day);
+                projectCount.Add(projects.Count());
+            }
+            return new JsonResult(new { myDate = date, myProjects = projectCount });
         }
 
         private void ComputeRating()
